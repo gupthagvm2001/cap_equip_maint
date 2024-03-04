@@ -15,14 +15,10 @@
                                 <fb:FilterGroupItem id="FGI01" name="Plant" label="Plant" groupName="Group1" visibleInFilterBar="true">
                                     <fb:control>
                                         <MultiComboBox id="MCB01"
-                                            name="Plant"
-                                            selectionChange=".onSelectionChange"
-                                            items="{
-                                                path: '{mainModel>plant}',
-                                                templateShareable: true
-                                            }"
-                                        >
-                                            <core:Item id="I01" key="{key}" text="{name}"/>
+                                        name="Plant"
+                                        selectionChange=".onSelectionChange"
+                                        items="{mainModel>/EquipMaint/Plant}"  >
+                                        <core:Item id="I01" key="{key}" text="{name}"/>
                                         </MultiComboBox>
                                     </fb:control>
                                 </fb:FilterGroupItem>
@@ -31,10 +27,7 @@
                                         <MultiComboBox id="MCB02"
                                             name="ServiceDate"
                                             selectionChange=".onSelectionChange"
-                                            items="{
-                                                path: '/ServiceDate',
-                                                templateShareable: true
-                                            }"
+                                            items="{mainModel>/EquipMaint/ServiceDate}"
                                         >
                                             <core:Item id="I02" key="{key}" text="{name}"/>
                                         </MultiComboBox>
@@ -45,10 +38,7 @@
                                         <MultiComboBox id="MCB03"
                                             name="MachineID"
                                             selectionChange=".onSelectionChange"
-                                            items="{
-                                                path: '/MachineID',
-                                                templateShareable: true
-                                            }"
+                                            items="{mainModel>/EquipMaint/MachineID}"
                                         >
                                             <core:Item id="I03" key="{key}" text="{name}"/>
                                         </MultiComboBox>
