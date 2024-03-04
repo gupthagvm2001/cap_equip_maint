@@ -1,0 +1,1 @@
+using CatalogService as service from '../../srv/equip_maint_srv';

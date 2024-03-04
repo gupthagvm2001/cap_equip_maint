@@ -1,0 +1,155 @@
+<mvc:View controllerName="com.sap.equipmaintproject1.controller.Home"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:svm="sap.ui.comp.smartvariants">
+    <Page id="page" title="{i18n>title}">
+        <f:DynamicPage id="DP01" headerExpanded="{/headerExpanded}">
+            <f:header>
+                <f:DynamicPageHeader id="DPH01">
+                    <f:content>
+                        <fb:FilterBar id="filterbar" persistencyKey="myPersKey" useToolbar="false" search=".onSearch" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad">
+                            <fb:filterGroupItems>
+                                <fb:FilterGroupItem id="FGI01" name="Plant" label="Plant" groupName="Group1" visibleInFilterBar="true">
+                                    <fb:control>
+                                        <MultiComboBox id="MCB01"
+                                            name="Plant"
+                                            selectionChange=".onSelectionChange"
+                                            items="{
+                                                path: '{mainModel>plant}',
+                                                templateShareable: true
+                                            }"
+                                        >
+                                            <core:Item id="I01" key="{key}" text="{name}"/>
+                                        </MultiComboBox>
+                                    </fb:control>
+                                </fb:FilterGroupItem>
+                                <fb:FilterGroupItem id="FGI02" name="ServiceDate" label="Service Date" groupName="Group1" visibleInFilterBar="true">
+                                    <fb:control>
+                                        <MultiComboBox id="MCB02"
+                                            name="ServiceDate"
+                                            selectionChange=".onSelectionChange"
+                                            items="{
+                                                path: '/ServiceDate',
+                                                templateShareable: true
+                                            }"
+                                        >
+                                            <core:Item id="I02" key="{key}" text="{name}"/>
+                                        </MultiComboBox>
+                                    </fb:control>
+                                </fb:FilterGroupItem>
+                                <fb:FilterGroupItem id="FGI03" name="MachineID" label="Machine ID" groupName="Group1" visibleInFilterBar="true">
+                                    <fb:control>
+                                        <MultiComboBox id="MCB03"
+                                            name="MachineID"
+                                            selectionChange=".onSelectionChange"
+                                            items="{
+                                                path: '/MachineID',
+                                                templateShareable: true
+                                            }"
+                                        >
+                                            <core:Item id="I03" key="{key}" text="{name}"/>
+                                        </MultiComboBox>
+                                    </fb:control>
+                                </fb:FilterGroupItem>
+                            </fb:filterGroupItems>
+                        </fb:FilterBar>
+                    </f:content>
+                </f:DynamicPageHeader>
+            </f:header>
+            <f:content>
+                <Table items="{mainModel>/EquipMaint}" id="table0" mode="SingleSelectLeft" selectionChange="onSelect">
+                    <columns>
+                        <Column id="c01">
+                            <header>
+                                <Label id="LB01" text="Maintenance ID" />
+                            </header>
+                        </Column>
+                        <Column id="c02">
+                            <header>
+                                <Label id="LB02" text="Machine ID" />
+                            </header>
+                        </Column>
+                        <Column id="c03">
+                            <header>
+                                <Label id="LB03" text="Machine Description" />
+                            </header>
+                        </Column>
+                        <Column id="c04">
+                            <header>
+                                <Label id="LB04" text="Maintenance Location" />
+                            </header>
+                        </Column>
+                        <Column id="c05">
+                            <header>
+                                <Label id="LB05" text="Service Date" />
+                            </header>
+                        </Column>
+                        <Column id="c06">
+                            <header>
+                                <Label id="LB06" text="Technician" />
+                            </header>
+                        </Column>
+                        <Column id="c07">
+                            <header>
+                                <Label id="LB07" text="Maintenance Type" />
+                            </header>
+                        </Column>
+                        <Column id="c08">
+                            <header>
+                                <Label id="LB08" text="Technician Comments" />
+                            </header>
+                        </Column>
+                        <Column id="c09">
+                            <header>
+                                <Label id="LB09" text="Plant" />
+                            </header>
+                        </Column>
+                        <Column id="c10">
+                            <header>
+                                <Label id="LB10" text="Plant Description" />
+                            </header>
+                        </Column>
+                        <Column id="c11">
+                            <header>
+                                <Label id="LB11" text="Labor Cost" />
+                            </header>
+                        </Column>
+                        <Column id="c12">
+                            <header>
+                                <Label id="LB12" text="Spare Parts Cost" />
+                            </header>
+                        </Column>
+                        <Column id="c13">
+                            <header>
+                                <Label id="LB13" text="Currency Type" />
+                            </header>
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem type="Active" id="item0">
+                            <cells>
+                                <Text id="id1" text="{mainModel>maintID}" />
+                                <Text id="id2" text="{mainModel>machineID}" />
+                                <Text id="id3" text="{mainModel>machineDescription}" />
+                                <Text id="id4" text="{mainModel>maintenanceLocation}" />
+                                <Text id="id5" text="{mainModel>serviceDate}" />
+                                <Text id="id6" text="{mainModel>technician}" />
+                                <Text id="id7" text="{mainModel>maintenanceType}" />
+                                <Text id="id8" text="{mainModel>technicianComments}" />
+                                <Text id="id9" text="{mainModel>plant}" />
+                                <Text id="id10" text="{mainModel>plantDescription}" />
+                                <Text id="id11" text="{mainModel>laborCost}" />
+                                <Text id="id12" text="{mainModel>sparePartsCost}" />
+                                <Text id="id13" text="{mainModel>currencyType}" />
+                                <Button id="id01" icon="sap-icon://edit" press="onSelect" />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </f:content>
+        </f:DynamicPage>
+    </Page>
+</mvc:View>
