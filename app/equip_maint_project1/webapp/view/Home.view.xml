@@ -3,7 +3,10 @@
     xmlns:core="sap.ui.core"
     xmlns="sap.m"
     xmlns:f="sap.f"
-    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:smartchart="sap.ui.comp.smartchart"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:sl="sap.ui.comp.navpopover"
+    xmlns:fb="sap.ui.comp.filterbar" 
     xmlns:svm="sap.ui.comp.smartvariants">
     <Page id="page" title="{i18n>title}">
         <f:DynamicPage id="DP01" headerExpanded="{/headerExpanded}">
@@ -15,9 +18,9 @@
                                 <fb:FilterGroupItem id="FGI01" name="Plant" label="Plant" groupName="Group1" visibleInFilterBar="true">
                                     <fb:control>
                                         <MultiComboBox id="MCB01"
-                                        name="Plant"
-                                        selectionChange=".onSelectionChange"
-                                        items="{mainModel>/EquipMaint/Plant}"  >
+                                            name="Plant"
+                                            selectionChange=".onSelectionChange"
+                                            items="{mainModel>/plant}"  >
                                         <core:Item id="I01" key="{key}" text="{name}"/>
                                         </MultiComboBox>
                                     </fb:control>
@@ -27,7 +30,7 @@
                                         <MultiComboBox id="MCB02"
                                             name="ServiceDate"
                                             selectionChange=".onSelectionChange"
-                                            items="{mainModel>/EquipMaint/ServiceDate}"
+                                            items="{mainModel>/ServiceDate}"
                                         >
                                             <core:Item id="I02" key="{key}" text="{name}"/>
                                         </MultiComboBox>
