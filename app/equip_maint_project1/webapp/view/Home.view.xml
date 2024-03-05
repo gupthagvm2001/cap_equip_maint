@@ -20,8 +20,8 @@
                                         <MultiComboBox id="MCB01"
                                             name="Plant"
                                             selectionChange=".onSelectionChange"
-                                            items="{mainModel>/plant}"  >
-                                        <core:Item id="I01" key="{key}" text="{name}"/>
+                                            items="{mainModel>/EquipMaint}"  >
+                                        <core:Item id="I01" key="{key}" text="{mainModel>plant}"/>
                                         </MultiComboBox>
                                     </fb:control>
                                 </fb:FilterGroupItem>
@@ -30,9 +30,8 @@
                                         <MultiComboBox id="MCB02"
                                             name="ServiceDate"
                                             selectionChange=".onSelectionChange"
-                                            items="{mainModel>/ServiceDate}"
-                                        >
-                                            <core:Item id="I02" key="{key}" text="{name}"/>
+                                            items="{mainModel>/EquipMaint}">
+                                            <core:Item id="I02" key="{key}" text="{mainModel>serviceDate}"/>
                                         </MultiComboBox>
                                     </fb:control>
                                 </fb:FilterGroupItem>
@@ -41,9 +40,8 @@
                                         <MultiComboBox id="MCB03"
                                             name="MachineID"
                                             selectionChange=".onSelectionChange"
-                                            items="{mainModel>/EquipMaint/MachineID}"
-                                        >
-                                            <core:Item id="I03" key="{key}" text="{name}"/>
+                                            items="{mainModel>/EquipMaint}">
+                                            <core:Item id="I03" key="{key}" text="{mainModel>machineID}"/>
                                         </MultiComboBox>
                                     </fb:control>
                                 </fb:FilterGroupItem>

@@ -10,13 +10,40 @@ sap.ui.define([
         onInit: function() {
             this._oTable = this.byId("table0");
         },
+        // currently we are not using the below as we dont require search feature
         onOpenAddDialog: function() {
             this.getView().byId("OpenDialog").open();
         },
         onCancelDialog: function(oEvent) {
             oEvent.getSource().getParent().close();
         },
-        onSearch: function(oEvent) {
+        onSearch: function () {
+			var aTableFilters = this.oFilterBar.getFilterGroupItems().reduce(function (aResult, oFilterGroupItem) {
+				var oControl = oFilterGroupItem.getControl(),
+					aSelectedKeys = oControl.getSelectedKeys(),
+					aFilters = aSelectedKeys.map(function (sSelectedKey) {
+						return new Filter({
+							path: oFilterGroupItem.getName(),
+							operator: FilterOperator.Contains,
+							value1: sSelectedKey
+						});
+					});
+
+				if (aSelectedKeys.length > 0) {
+					aResult.push(new Filter({
+						filters: aFilters,
+						and: false
+					}));
+				}
+
+				return aResult;
+			}, []);
+
+			this.oTable.getBinding("items").filter(aTableFilters);
+			this.oTable.setShowOverlay(false);
+		},
+        
+        /* onSearch: function(oEvent) {
             var sSearchValue = oEvent.getParameter("query");
             var oTable = this.getView().byId("table0");
             var oBinding = oTable.getBinding("items");
@@ -30,18 +57,17 @@ sap.ui.define([
                 filters: aFilters,
                 and: false
             }));
-        },
-        onFilterChange: function(oEvent) {
-            // Handle filter change event
-            var aFilters = oEvent.getParameter("filters");
-            MessageToast.show("Filters changed");
-        },
-        onAfterVariantLoad: function() {
-            MessageToast.show("Variant loaded");
-        },
-        onSelectionChange: function(oEvent) {
-            var aSelectedItems = oEvent.getParameter("selectedItems");
-            MessageToast.show(aSelectedItems.length + " items selected");
+        }, */
+        onFilterChange: function () {
+			this._updateLabelsAndTable();
+		},
+
+		onAfterVariantLoad: function () {
+			this._updateLabelsAndTable();
+		},
+        onSelectionChange: function (oEvent) {
+			this.oSmartVariantManagement.currentVariantSetModified(true);
+			this.oFilterBar.fireFilterChange(oEvent);
         },
         fetchData: function() {
             var aData = this.oFilterBar.getAllFilterItems().reduce(function(aResult, oFilterItem) {
@@ -62,56 +88,32 @@ sap.ui.define([
                 oControl.setSelectedKeys(oDataObject.fieldData);
             }, this);
         },
-        getFiltersWithValues: function() {
-            var aFiltersWithValue = this.oFilterBar.getFilterGroupItems().reduce(function(aResult, oFilterGroupItem) {
-                var oControl = oFilterGroupItem.getControl();
-
-                if (oControl && oControl.getSelectedKeys && oControl.getSelectedKeys().length > 0) {
-                    aResult.push(oFilterGroupItem);
-                }
-
-                return aResult;
-            }, []);
-
-            return aFiltersWithValue;
+        formatDistinctPlants: function(oData) {
+            if (!oData || !Array.isArray(oData)) {
+                return [];
+            }
+        
+            // Create a map to store unique plant values
+            var uniquePlantsMap = {};
+        
+            // Loop through the data to populate uniquePlantsMap
+            oData.forEach(function(item) {
+                uniquePlantsMap[item.plant] = true;
+            });
+        
+            // Extract unique plant values from the map
+            var uniquePlants = Object.keys(uniquePlantsMap);
+        
+            // Format the unique plant values into items array for the MultiComboBox
+            return uniquePlants.map(function(plant) {
+                return new sap.ui.core.Item({
+                    key: plant,
+                    text: plant
+                });
+            });
         },
-        _updateLabelsAndTable: function() {
-            this.oExpandedLabel.setText(this.getFormattedSummaryTextExpanded());
-            this.oSnappedLabel.setText(this.getFormattedSummaryText());
-            this.oTable.setShowOverlay(true);
-        },
-        getFormattedSummaryText: function() {
-            var aFiltersWithValues = this.oFilterBar.retrieveFiltersWithValues();
-
-            if (aFiltersWithValues.length === 0) {
-                return "No filters active";
-            }
-
-            if (aFiltersWithValues.length === 1) {
-                return aFiltersWithValues.length + " filter active: " + aFiltersWithValues.join(", ");
-            }
-
-            return aFiltersWithValues.length + " filters active: " + aFiltersWithValues.join(", ");
-        },
-        getFormattedSummaryTextExpanded: function() {
-            var aFiltersWithValues = this.oFilterBar.retrieveFiltersWithValues();
-
-            if (aFiltersWithValues.length === 0) {
-                return "No filters active";
-            }
-
-            var sText = aFiltersWithValues.length + " filters active",
-                aNonVisibleFiltersWithValues = this.oFilterBar.retrieveNonVisibleFiltersWithValues();
-
-            if (aFiltersWithValues.length === 1) {
-                sText = aFiltersWithValues.length + " filter active";
-            }
-
-            if (aNonVisibleFiltersWithValues && aNonVisibleFiltersWithValues.length > 0) {
-                sText += " (" + aNonVisibleFiltersWithValues.length + " hidden)";
-            }
-
-            return sText;
-        }
+        
+        // Define similar formatter functions for other fields if needed
+        
     });
 });
