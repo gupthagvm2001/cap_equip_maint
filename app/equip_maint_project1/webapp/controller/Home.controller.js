@@ -82,38 +82,21 @@ sap.ui.define([
 
             return aData;
         },
+        getUniqueServiceDates(aEquipMaint) {
+            var aUniqueDates = [];
+            for (var i = 0; i < aEquipMaint.length; i++) {
+                var sServiceDate = aEquipMaint[i].serviceDate;
+                if (aUniqueDates.indexOf(sServiceDate) === -1) {
+                    aUniqueDates.push(sServiceDate);
+                }
+            }
+            return aUniqueDates;
+        },
         applyData: function(aData) {
             aData.forEach(function(oDataObject) {
                 var oControl = this.oFilterBar.determineControlByName(oDataObject.fieldName, oDataObject.groupName);
                 oControl.setSelectedKeys(oDataObject.fieldData);
             }, this);
-        },
-        formatDistinctPlants: function(oData) {
-            if (!oData || !Array.isArray(oData)) {
-                return [];
-            }
-        
-            // Create a map to store unique plant values
-            var uniquePlantsMap = {};
-        
-            // Loop through the data to populate uniquePlantsMap
-            oData.forEach(function(item) {
-                uniquePlantsMap[item.plant] = true;
-            });
-        
-            // Extract unique plant values from the map
-            var uniquePlants = Object.keys(uniquePlantsMap);
-        
-            // Format the unique plant values into items array for the MultiComboBox
-            return uniquePlants.map(function(plant) {
-                return new sap.ui.core.Item({
-                    key: plant,
-                    text: plant
-                });
-            });
-        },
-        
-        // Define similar formatter functions for other fields if needed
-        
+        }
     });
 });
