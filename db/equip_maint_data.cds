@@ -10,7 +10,7 @@ entity EquipMaint {
   @title : 'Maintenance Location'
   maintenanceLocation: String;
   @title : 'Service Date'
-  serviceDate: String;
+  serviceDate: Date;
   @title : 'Technician'
   technician: String;
   @title : 'Maintenance Type'
@@ -27,4 +27,10 @@ entity EquipMaint {
   sparePartsCost: Decimal; 
   @title : 'Currency Type'
   currencyType: String; 
+  @title : 'Plant Unique'
+  plantID: String;
+  @title : 'Service Date Unique'
+  serviceDateID: Date; 
+  @title : 'Machine ID Unique'
+  machineIDID: String; 
 }

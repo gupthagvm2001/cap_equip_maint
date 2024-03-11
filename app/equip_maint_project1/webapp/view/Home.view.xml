@@ -13,35 +13,36 @@
             <f:header>
                 <f:DynamicPageHeader id="DPH01">
                     <f:content>
-                        <fb:FilterBar id="filterbar" persistencyKey="myPersKey" useToolbar="false" search=".onSearch" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad">
+                        <fb:FilterBar id="filterbar" persistencyKey="myPersKey" useToolbar="false">
                             <fb:filterGroupItems>
-                                <fb:FilterGroupItem id="FGI01" name="Plant" label="Plant" groupName="Group1" visibleInFilterBar="true">
+                                <fb:FilterGroupItem id="FGI01" name="plantID" label="Plant" groupName="Group1" visibleInFilterBar="true">
                                     <fb:control>
                                         <MultiComboBox id="MCB01"
-                                            name="Plant"
-                                            selectionChange=".onSelectionChange"
-                                            items="{mainModel>/EquipMaint}"  >
-                                        <core:Item id="I01" key="{mainModel>plant}" text="{mainModel>plant}"/>
+                                                    name="plantID"
+                                                    selectionChange=".onSelectionChange"
+                                                    items="{path: 'mainModel>/EquipMaint', length: 5}">
+                                            <core:Item id="I01" key="{mainModel>plantID}" text="{mainModel>plantID}"/>
                                         </MultiComboBox>
                                     </fb:control>
                                 </fb:FilterGroupItem>
-                                <fb:FilterGroupItem id="FGI02" name="ServiceDate" label="Service Date" groupName="Group1" visibleInFilterBar="true">
+                                <fb:FilterGroupItem id="FGI02" name="ServiceDateID" label="Service Date" groupName="Group1" visibleInFilterBar="true" >
                                     <fb:control>
                                         <MultiComboBox id="MCB02"
-                                            name="ServiceDate"
+                                            name="ServiceDateID"
                                             selectionChange=".onSelectionChange"
-                                            items="{mainModel>/EquipMaint}">
-                                            <core:Item id="I02" key="{mainModel>serviceDate}" text="{mainModel>serviceDate}"/>
+                                            items="{path: 'mainModel>/EquipMaint', length: 159}"
+                                        >
+                                            <core:Item id="I02" key="{mainModel>serviceDateID}" text="{mainModel>serviceDateID}"/>
                                         </MultiComboBox>
                                     </fb:control>
                                 </fb:FilterGroupItem>
-                                <fb:FilterGroupItem id="FGI03" name="MachineID" label="Machine ID" groupName="Group1" visibleInFilterBar="true">
+                                <fb:FilterGroupItem id="FGI03" name="MachineIDID" label="Machine ID" groupName="Group1" visibleInFilterBar="true">
                                     <fb:control>
                                         <MultiComboBox id="MCB03"
-                                            name="MachineID"
+                                            name="MachineIDID"
                                             selectionChange=".onSelectionChange"
-                                            items="{mainModel>/EquipMaint}">
-                                            <core:Item id="I03" key="{mainModel>machineID}" text="{mainModel>machineID}"/>
+                                            items="{path: 'mainModel>/EquipMaint', length: 23}">
+                                            <core:Item id="I03" key="{mainModel>machineIDID}" text="{mainModel>machineIDID}"/>
                                         </MultiComboBox>
                                     </fb:control>
                                 </fb:FilterGroupItem>
