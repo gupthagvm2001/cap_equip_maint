@@ -20,7 +20,8 @@
                                         <MultiComboBox id="MCB01"
                                                     name="plantID"
                                                     selectionChange=".onSelectionChange"
-                                                    items="{path: 'mainModel>/EquipMaint', length: 5}">
+                                                    items="{path: 'mainModel>/EquipMaint', length: 5}"
+                                                    >
                                             <core:Item id="I01" key="{mainModel>plantID}" text="{mainModel>plantID}"/>
                                         </MultiComboBox>
                                     </fb:control>
