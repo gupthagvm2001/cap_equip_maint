@@ -21,7 +21,7 @@
                                             name="Plant"
                                             selectionChange=".onSelectionChange"
                                             items="{mainModel>/EquipMaint}"  >
-                                        <core:Item id="I01" key="{key}" text="{mainModel>plant}"/>
+                                        <core:Item id="I01" key="{mainModel>plant}" text="{mainModel>plant}"/>
                                         </MultiComboBox>
                                     </fb:control>
                                 </fb:FilterGroupItem>
@@ -31,7 +31,7 @@
                                             name="ServiceDate"
                                             selectionChange=".onSelectionChange"
                                             items="{mainModel>/EquipMaint}">
-                                            <core:Item id="I02" key="{key}" text="{mainModel>serviceDate}"/>
+                                            <core:Item id="I02" key="{mainModel>serviceDate}" text="{mainModel>serviceDate}"/>
                                         </MultiComboBox>
                                     </fb:control>
                                 </fb:FilterGroupItem>
@@ -41,7 +41,7 @@
                                             name="MachineID"
                                             selectionChange=".onSelectionChange"
                                             items="{mainModel>/EquipMaint}">
-                                            <core:Item id="I03" key="{key}" text="{mainModel>machineID}"/>
+                                            <core:Item id="I03" key="{mainModel>machineID}" text="{mainModel>machineID}"/>
                                         </MultiComboBox>
                                     </fb:control>
                                 </fb:FilterGroupItem>

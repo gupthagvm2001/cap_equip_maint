@@ -10,7 +10,7 @@ entity EquipMaint {
   @title : 'Maintenance Location'
   maintenanceLocation: String;
   @title : 'Service Date'
-  serviceDate: Date;
+  serviceDate: String;
   @title : 'Technician'
   technician: String;
   @title : 'Maintenance Type'
