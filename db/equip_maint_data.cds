@@ -2,7 +2,7 @@ namespace cap_equip_maint;
 
 entity EquipMaint {
   @title : 'Maintenance ID'
-  key maintID :Integer;
+  key maintID :String;
   @title : 'Machine ID'
   machineID: String;
   @title : 'Machine Description'
