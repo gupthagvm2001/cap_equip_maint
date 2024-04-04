@@ -6,7 +6,7 @@ sap.ui.define([
 ], function(Controller, Filter, FilterOperator, DateFormat) {
     "use strict";
  
-    return Controller.extend("com.sap.equipmaintproject1.controller.Home", {
+    return Controller.extend("com.sap.equipmaintproject.controller.Home", {
         onInit: function() {
             var oView = this.getView();
             var oTable = oView.byId("table0");
