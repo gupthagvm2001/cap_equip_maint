@@ -27,10 +27,16 @@ entity EquipMaint {
   sparePartsCost: Decimal; 
   @title : 'Currency Type'
   currencyType: String; 
+  @title : 'Service Count'
+  serviceCount: Integer; 
+  @title : 'Year'
+  year: Integer;
+  @title : 'Month'
+  month: Integer;
   @title : 'Plant Unique'
   plantID: String;
   @title : 'Service Date Unique'
   serviceDateID: Date; 
   @title : 'Machine ID Unique'
-  machineIDID: String; 
+  machineIDID: String;
 }
