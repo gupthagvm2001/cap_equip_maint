@@ -61,20 +61,21 @@
                                 <layout:FixFlex id='chartFixFlex' minFlexSize="250">
                                     <layout:flexContent>
                                         <viz:VizFrame id="idVizFrame1" uiConfig="{applicationSet:'fiori'}"
-                                            height='750px' width="100%" vizType='stacked_bar' vizProperties="{ title: {text : 'Service Count by Maintenance Type and Month/Year', visible : true}}">
+                                                    height="750px" width="100%" vizType="stacked_bar" 
+                                                    vizProperties="{ title: {text : 'Service Count by Maintenance Type and Month/Year', visible : true}}">
                                             <viz:dataset>
-                                                <viz.data:FlattenedDataset id="_IDGenFlattenedDataset1" data="{path: 'mainModel>/EquipMaint'}">
+                                                <viz.data:FlattenedDataset id="_IDGenFlattenedDataset1" data="{path: 'mainModel>/AggregatedEquipMaint_C1'}">
                                                     <viz.data:dimensions>
                                                         <viz.data:DimensionDefinition id="_IDGenDimensionDefinition1" name="Month"
-                                                            value="{mainModel>month}" />
+                                                                                    value="{mainModel>month}" />
                                                         <viz.data:DimensionDefinition id="_IDGenDimensionDefinition02" name="Year"
-                                                            value="{mainModel>year}" />
+                                                                                    value="{mainModel>year}" />
                                                         <viz.data:DimensionDefinition id="_IDGenDimensionDefinition03" name="Maintenance Type"
-                                                            value="{mainModel>maintenanceType}" />
+                                                                                    value="{mainModel>maintenanceType}" />
                                                     </viz.data:dimensions>
                                                     <viz.data:measures>
                                                         <viz.data:MeasureDefinition id="_IDGenMeasureDefinition1" name="Service Count"
-                                                            value="{mainModel>serviceCount}" /> <!-- Each record counts as 1 service event -->
+                                                                                    value="{mainModel>totalserviceCount}" /> <!-- Each record counts as 1 service event -->
                                                     </viz.data:measures>
                                                 </viz.data:FlattenedDataset>
                                             </viz:dataset>
@@ -97,13 +98,13 @@
                                         <viz:VizFrame id="idVizFrame2" uiConfig="{applicationSet:'fiori'}"
                                         height='750px' width="100%" vizType='stacked_bar' vizProperties="{ title: {text : 'Service Cost by Maintenance Location and Machine Description', visible : true}}">
                                         <viz:dataset>
-                                            <viz.data:FlattenedDataset id="_IDGenFlattenedDataset2" data="{mainModel>/EquipMaint}">
+                                            <viz.data:FlattenedDataset id="_IDGenFlattenedDataset2" data="{mainModel>/AggregatedEquipMaint_C2}">
                                                 <viz.data:dimensions>
                                                     <viz.data:DimensionDefinition id="_IDGenDimensionDefinition2" name="Machine Description" value="{mainModel>machineDescription}" />
                                                     <viz.data:DimensionDefinition id="_IDGenDimensionDefinition3" name="Maintenance Location" value="{mainModel>maintenanceLocation}" />
                                                 </viz.data:dimensions>
                                                 <viz.data:measures>
-                                                    <viz.data:MeasureDefinition id="_IDGenMeasureDefinition3" name="Labor Cost" value="{mainModel>laborCost}" />
+                                                    <viz.data:MeasureDefinition id="_IDGenMeasureDefinition3" name="Labor Cost" value="{mainModel>totalLaborCost}" />
                                                 </viz.data:measures>
                                             </viz.data:FlattenedDataset>
                                         </viz:dataset>

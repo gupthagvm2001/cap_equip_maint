@@ -40,3 +40,17 @@ entity EquipMaint {
   @title : 'Machine ID Unique'
   machineIDID: String;
 }
+
+entity AggregatedEquipMaint_C1 as select from EquipMaint {
+  key year,
+  key month,
+  key maintenanceType,
+  count(serviceCount) as totalserviceCount : Integer
+} group by year, month, maintenanceType;
+
+entity AggregatedEquipMaint_C2 as select from EquipMaint {
+  key maintenanceLocation,
+  key machineDescription,
+  @Aggregation.default : #SUM
+  sum(laborCost) as totalLaborCost : Decimal
+} group by maintenanceLocation, machineDescription;
