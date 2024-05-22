@@ -17,8 +17,8 @@ sap.ui.define([
                 pattern: "YYYY-MM-dd" // Set the desired date format
             });
 
-            // Handler for MultiComboBox selection change event
-            function onSelectionChange() {
+            // Function to handle filtering
+            function doFiltering() {
                 var aFilters = [];
                 var sSelectedPlant = oMultiComboBox1.getSelectedKeys();
                 var sSelectedServiceDate = oMultiComboBox2.getSelectedKeys().map(function(dateString) {
@@ -73,10 +73,8 @@ sap.ui.define([
                 }));
             }
  
-            // Attach selection change event handlers
-            oMultiComboBox1.attachSelectionChange(onSelectionChange);
-            oMultiComboBox2.attachSelectionChange(onSelectionChange);
-            oMultiComboBox3.attachSelectionChange(onSelectionChange);
+            // Attach filtering function to "Go" button press event
+            oView.byId("goButton").attachPress(doFiltering);
         }
     });
 });

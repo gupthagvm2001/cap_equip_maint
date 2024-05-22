@@ -16,7 +16,7 @@
             <f:header>
                 <f:DynamicPageHeader id="DPH01">
                     <f:content>
-                        <fb:FilterBar id="filterbar" persistencyKey="myPersKey" useToolbar="false">
+                        <fb:FilterBar id="filterbar" persistencyKey="myPersKey" useToolbar="false" showGoOnFB="false" showFilterConfiguration="false" advancedMode="false">
                             <fb:filterGroupItems>
                                 <fb:FilterGroupItem id="FGI01" name="plantID" label="Plant" groupName="Group1" visibleInFilterBar="true">
                                     <fb:control>
@@ -49,6 +49,7 @@
                                     </fb:control>
                                 </fb:FilterGroupItem>
                             </fb:filterGroupItems>
+                            <Button id="goButton" text="Search" press=".doFiltering"/>
                         </fb:FilterBar>
                     </f:content>           
                 </f:DynamicPageHeader>                                        
@@ -96,28 +97,27 @@
                                 <layout:FixFlex id='chartFixFlex2' minFlexSize="250">
                                     <layout:flexContent>
                                         <viz:VizFrame id="idVizFrame2" uiConfig="{applicationSet:'fiori'}"
-                                        height='750px' width="100%" vizType='stacked_bar' vizProperties="{ title: {text : 'Service Cost by Maintenance Location and Machine Description', visible : true}}">
-                                        <viz:dataset>
-                                            <viz.data:FlattenedDataset id="_IDGenFlattenedDataset2" data="{mainModel>/AggregatedEquipMaint_C2}">
-                                                <viz.data:dimensions>
-                                                    <viz.data:DimensionDefinition id="_IDGenDimensionDefinition2" name="Machine Description" value="{mainModel>machineDescription}" />
-                                                    <viz.data:DimensionDefinition id="_IDGenDimensionDefinition3" name="Maintenance Location" value="{mainModel>maintenanceLocation}" />
-                                                </viz.data:dimensions>
-                                                <viz.data:measures>
-                                                    <viz.data:MeasureDefinition id="_IDGenMeasureDefinition3" name="Labor Cost" value="{mainModel>totalLaborCost}" />
-                                                </viz.data:measures>
-                                            </viz.data:FlattenedDataset>
-                                        </viz:dataset>
-                                        <viz:feeds>
-                                            <viz.feeds:FeedItem id='valueAxisFeed3' uid="valueAxis" type="Measure" values="Labor Cost" />
-                                            <viz.feeds:FeedItem id='categoryAxisFeed2' uid="categoryAxis" type="Dimension" values="Machine Description" />
-                                            <viz.feeds:FeedItem id='categoryAxisFeed3' uid="categoryAxis" type="Dimension" values="Maintenance Location" />
-                                        </viz:feeds>
-                                        <viz:dependents>
-                                            <viz:Popover id="idPopOver2"></viz:Popover>
-                                        </viz:dependents>
-                                    </viz:VizFrame>
-
+                                            height='750px' width="100%" vizType='stacked_bar' vizProperties="{ title: {text : 'Service Cost by Maintenance Location and Machine Description', visible : true}}">
+                                            <viz:dataset>
+                                                <viz.data:FlattenedDataset id="_IDGenFlattenedDataset2" data="{mainModel>/AggregatedEquipMaint_C2}">
+                                                    <viz.data:dimensions>
+                                                        <viz.data:DimensionDefinition id="_IDGenDimensionDefinition2" name="Machine Description" value="{mainModel>machineDescription}" />
+                                                        <viz.data:DimensionDefinition id="_IDGenDimensionDefinition3" name="Maintenance Location" value="{mainModel>maintenanceLocation}" />
+                                                    </viz.data:dimensions>
+                                                    <viz.data:measures>
+                                                        <viz.data:MeasureDefinition id="_IDGenMeasureDefinition3" name="Labor Cost" value="{mainModel>totalLaborCost}" />
+                                                    </viz.data:measures>
+                                                </viz.data:FlattenedDataset>
+                                            </viz:dataset>
+                                            <viz:feeds>
+                                                <viz.feeds:FeedItem id='valueAxisFeed3' uid="valueAxis" type="Measure" values="Labor Cost" />
+                                                <viz.feeds:FeedItem id='categoryAxisFeed2' uid="categoryAxis" type="Dimension" values="Machine Description" />
+                                                <viz.feeds:FeedItem id='categoryAxisFeed3' uid="categoryAxis" type="Dimension" values="Maintenance Location" />
+                                            </viz:feeds>
+                                            <viz:dependents>
+                                                <viz:Popover id="idPopOver2"></viz:Popover>
+                                            </viz:dependents>
+                                        </viz:VizFrame>
                                     </layout:flexContent>
                                 </layout:FixFlex>
                             </VBox>
@@ -126,70 +126,44 @@
                     <VBox id="_IDGenVBox2">
                         <Table items="{mainModel>/EquipMaint}" id="table0" mode="SingleSelectLeft" selectionChange="onSelect">
                             <columns>
-                                <Column id="c01">
-                                    <header>
-                                        <Label id="LB01" text="Maintenance ID" />
-                                    </header>
+                                <Column id="_IDGenColumn1" minScreenWidth="Tablet" demandPopin="true">
+                                    <Text id="_IDGenText1" text="Maintenance ID" />
                                 </Column>
-                                        <Column id="c02">
-                                    <header>
-                                        <Label id="LB02" text="Machine ID" />
-                                    </header>
+                                <Column id="_IDGenColumn2" minScreenWidth="Tablet" demandPopin="true">
+                                    <Text id="_IDGenText2" text="Machine ID" />
                                 </Column>
-                                <Column id="c03">
-                                    <header>
-                                        <Label id="LB03" text="Machine Description" />
-                                    </header>
+                                <Column id="_IDGenColumn3" minScreenWidth="Tablet" demandPopin="true">
+                                    <Text id="_IDGenText3" text="Machine Description" />
                                 </Column>
-                                <Column id="c04">
-                                    <header>
-                                        <Label id="LB04" text="Maintenance Location" />
-                                    </header>
+                                <Column id="_IDGenColumn4" minScreenWidth="Tablet" demandPopin="true">
+                                    <Text id="_IDGenText4" text="Maintenance Location" />
                                 </Column>
-                                <Column id="c05">
-                                    <header>
-                                        <Label id="LB05" text="Service Date" />
-                                    </header>
+                                <Column id="_IDGenColumn5" minScreenWidth="Tablet" demandPopin="true">
+                                    <Text id="_IDGenText5" text="Service Date" />
                                 </Column>
-                                <Column id="c06">
-                                    <header>
-                                        <Label id="LB06" text="Technician" />
-                                    </header>
+                                <Column id="_IDGenColumn6" minScreenWidth="Tablet" demandPopin="true">
+                                    <Text id="_IDGenText6" text="Technician" />
                                 </Column>
-                                <Column id="c07">
-                                    <header>
-                                        <Label id="LB07" text="Maintenance Type" />
-                                    </header>
+                                <Column id="_IDGenColumn7" minScreenWidth="Tablet" demandPopin="true">
+                                    <Text id="_IDGenText7" text="Maintenance Type" />
                                 </Column>
-                                <Column id="c08">
-                                    <header>
-                                        <Label id="LB08" text="Technician Comments" />
-                                    </header>
+                                <Column id="_IDGenColumn8" minScreenWidth="Tablet" demandPopin="true">
+                                    <Text id="_IDGenText8" text="Technician Comments" />
                                 </Column>
-                                <Column id="c09">
-                                    <header>
-                                        <Label id="LB09" text="Plant" />
-                                    </header>
+                                <Column id="_IDGenColumn9" minScreenWidth="Tablet" demandPopin="true">
+                                    <Text id="_IDGenText9" text="Plant" />
                                 </Column>
-                                <Column id="c10">
-                                    <header>
-                                        <Label id="LB10" text="Plant Description" />
-                                    </header>
+                                <Column id="_IDGenColumn10" minScreenWidth="Tablet" demandPopin="true">
+                                    <Text id="_IDGenText10" text="Plant Description" />
                                 </Column>
-                                <Column id="c11">
-                                    <header>
-                                        <Label id="LB11" text="Labor Cost" />
-                                    </header>
+                                <Column id="_IDGenColumn11" minScreenWidth="Tablet" demandPopin="true">
+                                    <Text id="_IDGenText11" text="Labor Cost" />
                                 </Column>
-                                <Column id="c12">
-                                    <header>
-                                        <Label id="LB12" text="Spare Parts Cost" />
-                                    </header>
+                                <Column id="_IDGenColumn12" minScreenWidth="Tablet" demandPopin="true">
+                                    <Text id="_IDGenText12" text="Spare Parts Cost" />
                                 </Column>
-                                <Column id="c13">
-                                    <header>
-                                        <Label id="LB13" text="Currency Type" />
-                                    </header>
+                                <Column id="_IDGenColumn13" minScreenWidth="Tablet" demandPopin="true">
+                                    <Text id="_IDGenText13" text="Currency Type" />
                                 </Column>
                             </columns>
                             <items>
@@ -208,7 +182,6 @@
                                         <Text id="id11" text="{mainModel>laborCost}" />
                                         <Text id="id12" text="{mainModel>sparePartsCost}" />
                                         <Text id="id13" text="{mainModel>currencyType}" />
-                                        <Button id="id01" icon="sap-icon://edit" press="onSelect" />
                                     </cells>
                                 </ColumnListItem>
                             </items>
