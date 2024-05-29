@@ -1,4 +1,4 @@
-<mvc:View controllerName="com.sap.equipmaintproject.controller.Home"
+<mvc:View xmlns:unified="sap.ui.unified" controllerName="com.sap.equipmaintproject.controller.Home"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:core="sap.ui.core"
     xmlns="sap.m"
@@ -124,7 +124,12 @@
                         </HBox>
                     </VBox>           
                     <VBox id="_IDGenVBox2">
-                        <Table items="{mainModel>/EquipMaint}" id="table0" mode="None" selectionChange="onSelect">
+                        <HBox id="_IDGenHBox4" justifyContent="End">
+                            <Button id="onCreate" text="Create" press=".onCreateDialog" />
+                            <Button id="saveButton" text="{i18n>Save}" press=".onSave"/>
+                            <Button id="onDelete" text="Delete" press=".onDeleteSelected" />
+                        </HBox>                        
+                        <Table id="table0" mode="MultiSelect" growing="true" growingScrollToLoad="true" items="{mainModel>/EquipMaint}" selectionChange="onSelect">
                             <columns>
                                 <Column id="_IDGenColumn1" minScreenWidth="Tablet" demandPopin="true" width="75px">
                                     <Text id="_IDGenText1" text="Maintenance ID" />
@@ -169,19 +174,19 @@
                             <items>
                                 <ColumnListItem type="Active" id="item0">
                                     <cells>
-                                        <Text id="id1" text="{mainModel>maintID}" />
-                                        <Text id="id2" text="{mainModel>machineID}" />
-                                        <Text id="id3" text="{mainModel>machineDescription}" />
-                                        <Text id="id4" text="{mainModel>maintenanceLocation}" />
-                                        <Text id="id5" text="{mainModel>serviceDate}" />
-                                        <Text id="id6" text="{mainModel>technician}" />
-                                        <Text id="id7" text="{mainModel>maintenanceType}" />
-                                        <Text id="id8" text="{mainModel>technicianComments}" />
-                                        <Text id="id9" text="{mainModel>plant}" />
-                                        <Text id="id10" text="{mainModel>plantDescription}" />
-                                        <Text id="id11" text="{mainModel>laborCost}" />
-                                        <Text id="id12" text="{mainModel>sparePartsCost}" />
-                                        <Text id="id13" text="{mainModel>currencyType}" />
+                                        <Input id="input1" value="{mainModel>maintID}" valueLiveUpdate="true" liveChange=".onInputChange"/>
+                                        <Input id="input2" value="{mainModel>machineID}" valueLiveUpdate="true" liveChange=".onInputChange"/>
+                                        <Input id="input3" value="{mainModel>machineDescription}" valueLiveUpdate="true" liveChange=".onInputChange"/>
+                                        <Input id="input4" value="{mainModel>maintenanceLocation}" valueLiveUpdate="true" liveChange=".onInputChange"/>
+                                        <Input id="input5" value="{mainModel>serviceDate}" valueLiveUpdate="true" liveChange=".onInputChange"/>
+                                        <Input id="input6" value="{mainModel>technician}" valueLiveUpdate="true" liveChange=".onInputChange"/>
+                                        <Input id="input7" value="{mainModel>maintenanceType}" valueLiveUpdate="true" liveChange=".onInputChange"/>
+                                        <Input id="input8" value="{mainModel>technicianComments}" valueLiveUpdate="true" liveChange=".onInputChange"/>
+                                        <Input id="input9" value="{mainModel>plant}" valueLiveUpdate="true" liveChange=".onInputChange"/>
+                                        <Input id="input10" value="{mainModel>plantDescription}" valueLiveUpdate="true" liveChange=".onInputChange"/>
+                                        <Input id="input11" value="{mainModel>laborCost}" valueLiveUpdate="true" liveChange=".onInputChange"/>
+                                        <Input id="input12" value="{mainModel>sparePartsCost}" valueLiveUpdate="true" liveChange=".onInputChange"/>
+                                        <Input id="input13" value="{mainModel>currencyType}" valueLiveUpdate="true" liveChange=".onInputChange"/>
                                     </cells>
                                 </ColumnListItem>
                             </items>
@@ -191,4 +196,29 @@
             </f:content>
         </f:DynamicPage>
     </Page>
+    <Dialog id="createDialog" title="Create Maintenance Record">
+        <content>
+            <VBox id="_IDGenVBox3">
+                <Input id="newMaintID" placeholder="Maintenance ID"/>
+                <Input id="newMachineID" placeholder="Machine ID" />
+                <Input id="newMachineDescription" placeholder="Machine Description"/>
+                <Input id="newMaintenanceLocation" placeholder="Maintenance Location"/>
+                <DatePicker id="newServiceDate" placeholder="Service Date" valueFormat="yyyy-MM-dd" displayFormat="yyyy-MM-dd"/>
+                <Input id="newTechnician" placeholder="Technician"/>
+                <Input id="newMaintenanceType" placeholder="Maintenance Type"/>
+                <Input id="newTechnicianComments" placeholder="Technician Comments"/>
+                <Input id="newPlant" placeholder="Plant"/>
+                <Input id="newPlantDescription" placeholder="Plant Description"/>
+                <Input id="newLaborCost" placeholder="Labor Cost"/>
+                <Input id="newSparePartsCost" placeholder="Spare Parts Cost"/>
+                <Input id="newCurrencyType" placeholder="Currency Type"/>
+            </VBox>
+        </content>
+        <beginButton>
+            <Button id="createConfirm" text="Create" press=".onCreateConfirm"/>
+        </beginButton>
+        <endButton>
+            <Button id="createCancel" text="Cancel" press=".onCreateCancel"/>
+        </endButton>
+    </Dialog>
 </mvc:View>

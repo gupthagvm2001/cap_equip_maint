@@ -17,12 +17,10 @@ sap.ui.define([
                 pattern: "YYYY-MM-dd" // Set the desired date format
             });
 
-            // Function to handle filtering
             function doFiltering() {
                 var aFilters = [];
                 var sSelectedPlant = oMultiComboBox1.getSelectedKeys();
                 var sSelectedServiceDate = oMultiComboBox2.getSelectedKeys().map(function(dateString) {
-                    // Convert date string to the desired format
                     var dateObject = new Date(dateString);
                     var formattedDate = oDateFormat.format(dateObject);
                     return formattedDate;
@@ -30,51 +28,158 @@ sap.ui.define([
                 var sSelectedMachineID = oMultiComboBox3.getSelectedKeys();
  
                 if (sSelectedPlant.length > 0) {
-                    // Create filters for selected plants
                     var plantFilters = sSelectedPlant.map(function(plant) {
                         return new Filter("plant", FilterOperator.EQ, plant);
                     });
-                    // Combine plant filters with OR condition
                     aFilters.push(new Filter({
                         filters: plantFilters,
-                        and: false // Use "OR" conjunction
+                        and: false 
                     }));
                 }
                
                 if (sSelectedServiceDate.length > 0) {
-                    // Create filters for selected service dates
                     var serviceDateFilters = sSelectedServiceDate.map(function(serviceDate) {
                         return new Filter("serviceDate", FilterOperator.EQ, serviceDate);
                     });
-                    // Combine service date filters with OR condition
                     aFilters.push(new Filter({
                         filters: serviceDateFilters,
-                        and: false // Use "OR" conjunction
+                        and: false 
                     }));
                 }    
  
                 if (sSelectedMachineID.length > 0) {
-                    // Create filters for selected machine IDs
                     var machineFilters = sSelectedMachineID.map(function(machineID) {
                         return new Filter("machineID", FilterOperator.EQ, machineID);
                     });
-                    // Combine machine filters with OR condition
                     aFilters.push(new Filter({
                         filters: machineFilters,
-                        and: false // Use "OR" conjunction
+                        and: false 
                     }));
                 }
                 
-                // Apply all filters with AND condition
                 var oBinding = oTable.getBinding("items");                
                 oBinding.filter(new Filter({
                     filters: aFilters,
-                    and: true // Use "AND" conjunction for all filters
+                    and: true 
                 }));
             }
- 
-            // Attach filtering function to "Go" button press event
-            oView.byId("goButton").attachPress(doFiltering);
-        }
+
+            oView.byId("goButton").attachPress(doFiltering);            
+        },
+        onInputChange: function(oEvent) {
+            try {
+                var sNewValue = oEvent.getParameter("value");
+                var sPath = oEvent.getSource().getBindingContext("mainModel").getPath();
+                var oModel = this.getView().getModel("mainModel");
+                oModel.setProperty(sPath, sNewValue);
+                console.log("Updated Model Data:", oModel.getData());
+            } catch (error) {
+                console.error("Error occurred in onInputChange:", error);
+            }
+        },
+
+        onSave: function() {
+            try {
+                var oModel = this.getView().getModel("mainModel");
+                var oData = oModel.getData(); // Retrieve data from the model
+                console.log("Data to be saved:", oData);
+        
+                oModel.create("/EntitySet", oData, {
+                    success: function() {
+                        console.log("Data saved successfully.");
+                    },
+                    error: function(oError) {
+                        console.error("Error occurred while saving data:", oError);
+                    }
+                });
+            } catch (error) {
+                console.error("Error occurred in onSave:", error);
+            }
+        },
+        onDeleteSelected: function() {
+            try {
+                var oTable = this.getView().byId("table0");
+                var oModel = this.getView().getModel("mainModel");
+                var aSelectedItems = oTable.getSelectedItems();
+        
+                if (aSelectedItems.length === 0) {
+                    return;
+                }
+        
+                aSelectedItems.forEach(function(oSelectedItem) {
+                    var oBindingContext = oSelectedItem.getBindingContext("mainModel");
+                    var sPath = oBindingContext.getPath();
+                    oModel.remove(sPath); 
+                });
+        
+                oTable.removeSelections();
+            } catch (error) {
+                console.error("Error occurred in onDeleteSelected:", error);
+            }
+        },
+        onCreateDialog: function() {
+            var oView = this.getView();
+            if (!this.byId("createDialog")) {
+                Fragment.load({
+                    id: oView.getId(),
+                    name: "com.sap.equipmaintproject.view.CreateDialog",
+                    controller: this
+                }).then(function(oDialog) {
+                    oView.addDependent(oDialog);
+                    oDialog.open();
+                });
+            } else {
+                this.byId("createDialog").open();
+            }
+        },
+
+        onCreateConfirm: function() {
+            var oView = this.getView();
+            var oDialog = this.byId("createDialog");
+
+            var oNewMaintID = parseInt(oView.byId("newMaintID").getValue()).toString();
+            var oNewMachineID = parseInt(oView.byId("newMachineID").getValue());
+            var oNewMachineDescription = oView.byId("newMachineDescription").getValue();
+            var oNewMaintenanceLocation = oView.byId("newMaintenanceLocation").getValue();
+            var oNewServiceDate = oView.byId("newServiceDate").getValue();
+            var oNewTechnician = oView.byId("newTechnician").getValue();
+            var oNewMaintenanceType = oView.byId("newMaintenanceType").getValue();
+            var oNewTechnicianComments = oView.byId("newTechnicianComments").getValue();
+            var oNewPlant = oView.byId("newPlant").getValue();
+            var oNewPlantDescription = oView.byId("newPlantDescription").getValue();
+            var oNewLaborCost = parseFloat(oView.byId("newLaborCost").getValue());
+            var oNewSparePartsCost = parseFloat(oView.byId("newSparePartsCost").getValue());
+            var oNewCurrencyType = oView.byId("newCurrencyType").getValue();
+
+            var oNewEntry = {
+                maintID: oNewMaintID,
+                machineID: oNewMachineID,
+                machineDescription: oNewMachineDescription,
+                maintenanceLocation: oNewMaintenanceLocation,
+                serviceDate: oNewServiceDate,
+                technician: oNewTechnician,
+                maintenanceType: oNewMaintenanceType,
+                technicianComments: oNewTechnicianComments,
+                plant: oNewPlant,
+                plantDescription: oNewPlantDescription,
+                laborCost: oNewLaborCost,
+                sparePartsCost: oNewSparePartsCost,
+                currencyType: oNewCurrencyType
+            };
+
+            var oModel = this.getView().getModel("mainModel");
+            var aItems = oModel.getProperty("/EquipMaint");
+            aItems.push(oNewEntry);
+            oModel.setProperty("/EquipMaint", aItems);
+
+            // Close dialog
+            oDialog.close();
+            MessageBox.success("Maintenance record created successfully.");
+        },
+
+        onCreateCancel: function() {
+            var oDialog = this.byId("createDialog");
+            oDialog.close();
+        }            
     });
 });
