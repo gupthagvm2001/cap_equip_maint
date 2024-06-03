@@ -174,19 +174,19 @@
                             <items>
                                 <ColumnListItem type="Active" id="item0">
                                     <cells>
-                                        <Input id="input1" value="{mainModel>maintID}" valueLiveUpdate="true" liveChange=".onInputChange"/>
-                                        <Input id="input2" value="{mainModel>machineID}" valueLiveUpdate="true" liveChange=".onInputChange"/>
-                                        <Input id="input3" value="{mainModel>machineDescription}" valueLiveUpdate="true" liveChange=".onInputChange"/>
-                                        <Input id="input4" value="{mainModel>maintenanceLocation}" valueLiveUpdate="true" liveChange=".onInputChange"/>
-                                        <Input id="input5" value="{mainModel>serviceDate}" valueLiveUpdate="true" liveChange=".onInputChange"/>
-                                        <Input id="input6" value="{mainModel>technician}" valueLiveUpdate="true" liveChange=".onInputChange"/>
-                                        <Input id="input7" value="{mainModel>maintenanceType}" valueLiveUpdate="true" liveChange=".onInputChange"/>
-                                        <Input id="input8" value="{mainModel>technicianComments}" valueLiveUpdate="true" liveChange=".onInputChange"/>
-                                        <Input id="input9" value="{mainModel>plant}" valueLiveUpdate="true" liveChange=".onInputChange"/>
-                                        <Input id="input10" value="{mainModel>plantDescription}" valueLiveUpdate="true" liveChange=".onInputChange"/>
-                                        <Input id="input11" value="{mainModel>laborCost}" valueLiveUpdate="true" liveChange=".onInputChange"/>
-                                        <Input id="input12" value="{mainModel>sparePartsCost}" valueLiveUpdate="true" liveChange=".onInputChange"/>
-                                        <Input id="input13" value="{mainModel>currencyType}" valueLiveUpdate="true" liveChange=".onInputChange"/>
+                                        <Input id="input1" value="{mainModel>maintID}"  change=".onInputChange"/>
+                                        <Input id="input2" value="{mainModel>machineID}"  change=".onInputChange"/>
+                                        <Input id="input3" value="{mainModel>machineDescription}"  change=".onInputChange"/>
+                                        <Input id="input4" value="{mainModel>maintenanceLocation}"  change=".onInputChange"/>
+                                        <Input id="input5" value="{mainModel>serviceDate}"  change=".onInputChange"/>
+                                        <Input id="input6" value="{mainModel>technician}"  change=".onInputChange"/>
+                                        <Input id="input7" value="{mainModel>maintenanceType}"  change=".onInputChange"/>
+                                        <Input id="input8" value="{mainModel>technicianComments}"  change=".onInputChange"/>
+                                        <Input id="input9" value="{mainModel>plant}"  change=".onInputChange"/>
+                                        <Input id="input10" value="{mainModel>plantDescription}"  change=".onInputChange"/>
+                                        <Input id="input11" value="{mainModel>laborCost}"  change=".onInputChange"/>
+                                        <Input id="input12" value="{mainModel>sparePartsCost}"  change=".onInputChange"/>
+                                        <Input id="input13" value="{mainModel>currencyType}"  change=".onInputChange"/>
                                     </cells>
                                 </ColumnListItem>
                             </items>

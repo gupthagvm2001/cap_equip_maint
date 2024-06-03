@@ -68,118 +68,125 @@ sap.ui.define([
         },
         onInputChange: function(oEvent) {
             try {
-                var sNewValue = oEvent.getParameter("value");
+                var sNewValue = oEvent.getParameter("value");        
                 var sPath = oEvent.getSource().getBindingContext("mainModel").getPath();
                 var oModel = this.getView().getModel("mainModel");
+                sap.m.MessageToast.show("Updated new value: " + sNewValue);
                 oModel.setProperty(sPath, sNewValue);
-                console.log("Updated Model Data:", oModel.getData());
             } catch (error) {
                 console.error("Error occurred in onInputChange:", error);
             }
         },
 
         onSave: function() {
-            try {
-                var oModel = this.getView().getModel("mainModel");
-                var oData = oModel.getData(); // Retrieve data from the model
-                console.log("Data to be saved:", oData);
-        
-                oModel.create("/EntitySet", oData, {
-                    success: function() {
-                        console.log("Data saved successfully.");
-                    },
-                    error: function(oError) {
-                        console.error("Error occurred while saving data:", oError);
-                    }
-                });
-            } catch (error) {
-                console.error("Error occurred in onSave:", error);
-            }
+            var oModel = this.getView().getModel("mainModel");
+            this._setBusy(true);
+            oModel.submitChanges({
+                success: function() {
+                    sap.m.MessageToast.show("Changes saved successfully");
+                    this._setBusy(false);
+                }.bind(this),
+                error: function(oError) {
+                    sap.m.MessageBox.error("Error saving changes: " + oError.message);
+                    this._setBusy(false);
+                }.bind(this)
+            });
         },
+        
         onDeleteSelected: function() {
             try {
                 var oTable = this.getView().byId("table0");
-                var oModel = this.getView().getModel("mainModel");
                 var aSelectedItems = oTable.getSelectedItems();
         
                 if (aSelectedItems.length === 0) {
-                    return;
+                    sap.m.MessageToast.show("Select entries to delete.");
+                    return; 
                 }
         
-                aSelectedItems.forEach(function(oSelectedItem) {
-                    var oBindingContext = oSelectedItem.getBindingContext("mainModel");
-                    var sPath = oBindingContext.getPath();
-                    oModel.remove(sPath); 
+                sap.m.MessageBox.confirm("Delete selected entries?", {
+                    icon: sap.m.MessageBox.Icon.WARNING,
+                    actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
+                    onClose: function(oAction) {
+                        if (oAction === sap.m.MessageBox.Action.YES) {
+                            aSelectedItems.forEach(function(oSelectedItem) {
+                                var oContext = oSelectedItem.getBindingContext("mainModel");
+                                var sUserName = oContext.getProperty("maintID");
+                                
+                                oContext.delete().then(function() {
+                                    sap.m.MessageToast.show("Entries deleted successfully");
+                                }.bind(this), function(oError) {
+                                    if (oError.canceled) {
+                                        sap.m.MessageToast.show("Deletion restored");
+                                        return;
+                                    }
+                                    sap.m.MessageBox.error(oError.message + ": " + sUserName);
+                                }.bind(this));
+                            }.bind(this));
+                            
+                            oTable.removeSelections();
+                        } else {
+                            sap.m.MessageToast.show("Deletion cancelled.");
+                        }
+                    }.bind(this)
                 });
         
-                oTable.removeSelections();
             } catch (error) {
                 console.error("Error occurred in onDeleteSelected:", error);
+                sap.m.MessageToast.show("Error deleting entries!", {
+                    duration: 5000,
+                    icon: sap.m.MessageBox.Icon.ERROR
+                });
             }
         },
+
         onCreateDialog: function() {
             var oView = this.getView();
-            if (!this.byId("createDialog")) {
-                Fragment.load({
-                    id: oView.getId(),
-                    name: "com.sap.equipmaintproject.view.CreateDialog",
-                    controller: this
-                }).then(function(oDialog) {
-                    oView.addDependent(oDialog);
-                    oDialog.open();
-                });
-            } else {
-                this.byId("createDialog").open();
-            }
-        },
-
-        onCreateConfirm: function() {
-            var oView = this.getView();
             var oDialog = this.byId("createDialog");
-
-            var oNewMaintID = parseInt(oView.byId("newMaintID").getValue()).toString();
-            var oNewMachineID = parseInt(oView.byId("newMachineID").getValue());
-            var oNewMachineDescription = oView.byId("newMachineDescription").getValue();
-            var oNewMaintenanceLocation = oView.byId("newMaintenanceLocation").getValue();
-            var oNewServiceDate = oView.byId("newServiceDate").getValue();
-            var oNewTechnician = oView.byId("newTechnician").getValue();
-            var oNewMaintenanceType = oView.byId("newMaintenanceType").getValue();
-            var oNewTechnicianComments = oView.byId("newTechnicianComments").getValue();
-            var oNewPlant = oView.byId("newPlant").getValue();
-            var oNewPlantDescription = oView.byId("newPlantDescription").getValue();
-            var oNewLaborCost = parseFloat(oView.byId("newLaborCost").getValue());
-            var oNewSparePartsCost = parseFloat(oView.byId("newSparePartsCost").getValue());
-            var oNewCurrencyType = oView.byId("newCurrencyType").getValue();
+            var oList = this.byId("table0");
+            var oBinding = oList.getBinding("items");
 
             var oNewEntry = {
-                maintID: oNewMaintID,
-                machineID: oNewMachineID,
-                machineDescription: oNewMachineDescription,
-                maintenanceLocation: oNewMaintenanceLocation,
-                serviceDate: oNewServiceDate,
-                technician: oNewTechnician,
-                maintenanceType: oNewMaintenanceType,
-                technicianComments: oNewTechnicianComments,
-                plant: oNewPlant,
-                plantDescription: oNewPlantDescription,
-                laborCost: oNewLaborCost,
-                sparePartsCost: oNewSparePartsCost,
-                currencyType: oNewCurrencyType
+                maintID: oView.byId("newMaintID").getValue(),
+                machineID: parseInt(oView.byId("newMachineID").getValue(), 10),
+                machineDescription: oView.byId("newMachineDescription").getValue(),
+                maintenanceLocation: oView.byId("newMaintenanceLocation").getValue(),
+                serviceDate: oView.byId("newServiceDate").getValue(),
+                technician: oView.byId("newTechnician").getValue(),
+                maintenanceType: oView.byId("newMaintenanceType").getValue(),
+                technicianComments: oView.byId("newTechnicianComments").getValue(),
+                plant: oView.byId("newPlant").getValue(),
+                plantDescription: oView.byId("newPlantDescription").getValue(),
+                laborCost: parseFloat(oView.byId("newLaborCost").getValue()),
+                sparePartsCost: parseFloat(oView.byId("newSparePartsCost").getValue()),
+                currencyType: oView.byId("newCurrencyType").getValue()
             };
 
-            var oModel = this.getView().getModel("mainModel");
-            var aItems = oModel.getProperty("/EquipMaint");
-            aItems.push(oNewEntry);
-            oModel.setProperty("/EquipMaint", aItems);
+            // Create a new entry through the table's list binding
+            var oContext = oBinding.create(oNewEntry);
+
+            this._setBusy(flase);
+            this.getView().getModel("appView").setProperty("/usernameEmpty", true);
+
+            // Select and focus the table row that contains the newly created entry
+            oList.getItems().some(function (oItem) {
+                if (oItem.getBindingContext() === oContext) {
+                    oItem.focus();
+                    oItem.setSelected(true);
+                    return true;
+                }
+            });
 
             // Close dialog
             oDialog.close();
-            MessageBox.success("Maintenance record created successfully.");
         },
 
         onCreateCancel: function() {
             var oDialog = this.byId("createDialog");
             oDialog.close();
-        }            
+        },
+        
+        _setBusy: function(bBusy) {
+            this.getView().setBusy(bBusy);
+        }
     });
 });
