@@ -60,8 +60,16 @@
                                 <layout:FixFlex id='chartFixFlex' minFlexSize="250">
                                     <layout:flexContent>
                                         <viz:VizFrame id="idVizFrame1" uiConfig="{applicationSet:'fiori'}"
-                                                    height="400px" width="100%" vizType="stacked_bar" 
-                                                    vizProperties="{ title: {text : 'Service Count by Maintenance Type and Month/Year', visible : true}}">
+                                                    height="400px" width="100%" vizType="stacked_bar" visible="true"
+                                                    vizProperties="{
+                                                        title: {text : 'Service Count by Maintenance Type and Month/Year', visible : true},
+                                                        plotArea: {
+                                                            dataLabel: {
+                                                                showTotal: true,
+                                                                formatString: '0'
+                                                            }
+                                                        }
+                                                    }">
                                             <viz:dataset>
                                                 <viz.data:FlattenedDataset id="_IDGenFlattenedDataset1" data="{path: 'mainModel>/AggregatedEquipMaint_C1'}">
                                                     <viz.data:dimensions>
@@ -92,7 +100,16 @@
                                 <layout:FixFlex id='chartFixFlex2' minFlexSize="250">
                                     <layout:flexContent>
                                         <viz:VizFrame id="idVizFrame2" uiConfig="{applicationSet:'fiori'}"
-                                            height='400px' width="100%" vizType='stacked_bar' vizProperties="{ title: {text : 'Service Cost by Maintenance Location and Machine Description', visible : true}}">
+                                                    height='400px' width="100%" vizType='stacked_bar' 
+                                                    vizProperties="{
+                                                        title: {text : 'Service Cost by Maintenance Location and Machine Description', visible : true},
+                                                        plotArea: {
+                                                            dataLabel: {
+                                                                showTotal: true,
+                                                                formatString: '0'
+                                                            }
+                                                        }
+                                                    }">
                                             <viz:dataset>
                                                 <viz.data:FlattenedDataset id="_IDGenFlattenedDataset2" data="{mainModel>/AggregatedEquipMaint_C2}">
                                                     <viz.data:dimensions>
@@ -124,7 +141,7 @@
                             <Button id="saveButton" text="{i18n>Save}" press=".onSave"/>
                             <Button id="onDelete" text="Delete" press=".onDeleteSelected" />
                         </HBox>                        
-                        <Table id="table0" mode="MultiSelect" growing="true" growingScrollToLoad="true" items="{mainModel>/EquipMaint}" selectionChange="onSelect">
+                        <Table id="table0" mode="MultiSelect" growing="true" growingScrollToLoad="true" items="{path: 'mainModel>/EquipMaint' , parameters: {$$updateGroupId : 'equipMaintGroup'} }" selectionChange="onSelect">
                             <columns>
                                 <Column id="_IDGenColumn1" minScreenWidth="Tablet" demandPopin="true" width="75px">
                                     <Text id="_IDGenText1" text="Maintenance ID" />

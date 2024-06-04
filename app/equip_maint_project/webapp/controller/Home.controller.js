@@ -83,18 +83,21 @@ sap.ui.define([
         },
 
         onSave: function() {
-            var oModel = this.getView().getModel("mainModel");
-            this._setBusy(true);
-            oModel.submitChanges({
-                success: function() {
-                    sap.m.MessageToast.show("Changes saved successfully");
-                    this._setBusy(false);
-                }.bind(this),
-                error: function(oError) {
-                    sap.m.MessageBox.error("Error saving changes: " + oError.message);
-                    this._setBusy(false);
-                }.bind(this)
-            });
+            var fnSuccess = function() {
+                this._setBusy(false);
+                sap.m.MessageToast.show("Changes saved successfully");
+                this._setUIChanges(false);
+            }.bind(this);
+        
+            var fnError = function(oError) {
+                this._setBusy(false);
+                this._setUIChanges(true);
+                sap.m.MessageBox.error("Error saving changes: " + oError.message);
+            }.bind(this);
+        
+            this._setBusy(true); 
+            this.getView().getModel("mainModel").submitBatch("equipMaintGroup").then(fnSuccess, fnError);
+            this._bTechnicalErrors = false;
         },
 
         onDeleteSelected: function() {
