@@ -2,7 +2,7 @@ namespace cap_equip_maint;
 
 entity EquipMaint {
   @title : 'Maintenance ID'
-  key maintID :String;
+  key maintID : String;
   @title : 'Machine ID'
   machineID: String;
   @title : 'Machine Description'
@@ -27,26 +27,17 @@ entity EquipMaint {
   sparePartsCost: Decimal; 
   @title : 'Currency Type'
   currencyType: String; 
-  @title : 'Service Count'
-  serviceCount: Integer; 
-  @title : 'Year'
-  year: Integer;
-  @title : 'Month'
-  month: Integer;
-  @title : 'Plant Unique'
-  plantID: String;
-  @title : 'Service Date Unique'
-  serviceDateID: Date; 
-  @title : 'Machine ID Unique'
-  machineIDID: String;
 }
 
+entity UniqueEquipMaintplant as select plant from EquipMaint;
+entity UniqueEquipMaintMachineid as select machineID from EquipMaint;
+
 entity AggregatedEquipMaint_C1 as select from EquipMaint {
-  key year,
-  key month,
-  key maintenanceType,
-  count(serviceCount) as totalserviceCount : Integer
-} group by year, month, maintenanceType;
+  key serviceDate : String,
+  key maintenanceType : String,
+  (YEAR(serviceDate) || '-' || MONTH(serviceDate)) AS serviceMonth : String,
+  COUNT(EquipMaint.maintenanceType) AS totalserviceCount : Integer
+} GROUP BY (YEAR(serviceDate) || '-' || MONTH(serviceDate)), maintenanceType;
 
 entity AggregatedEquipMaint_C2 as select from EquipMaint {
   key maintenanceLocation,

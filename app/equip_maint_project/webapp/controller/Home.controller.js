@@ -69,6 +69,7 @@ sap.ui.define([
         
             oView.byId("goButton").attachPress(doFiltering);
         },
+        
         onInputChange: function(oEvent) {
             try {
                 var sNewValue = oEvent.getParameter("value");
@@ -149,15 +150,15 @@ sap.ui.define([
             var oBinding = oList.getBinding("items");
 
             var oNewEntry = {
-                maintID: oView.byId("newMaintID").getValue(),
-                machineID: parseInt(oView.byId("newMachineID").getValue(), 10),
+                maintID: (oView.byId("newMaintID").getValue()).toString(),
+                machineID: oView.byId("newMachineID").getValue(),
                 machineDescription: oView.byId("newMachineDescription").getValue(),
                 maintenanceLocation: oView.byId("newMaintenanceLocation").getValue(),
                 serviceDate: oView.byId("newServiceDate").getValue(),
                 technician: oView.byId("newTechnician").getValue(),
                 maintenanceType: oView.byId("newMaintenanceType").getValue(),
                 technicianComments: oView.byId("newTechnicianComments").getValue(),
-                plant: oView.byId("newPlant").getValue(),
+                plant: (oView.byId("newPlant").getValue()).toString(),
                 plantDescription: oView.byId("newPlantDescription").getValue(),
                 laborCost: parseFloat(oView.byId("newLaborCost").getValue()),
                 sparePartsCost: parseFloat(oView.byId("newSparePartsCost").getValue()),

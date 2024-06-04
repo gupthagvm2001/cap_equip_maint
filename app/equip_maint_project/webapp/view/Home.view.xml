@@ -23,7 +23,7 @@
                                         <MultiComboBox id="MCB01"
                                                     name="plant"
                                                     selectionChange=".onSelectionChange"
-                                                    items="{path: 'mainModel>/EquipMaint'}">
+                                                    items="{path: 'mainModel>/UniqueEquipMaintplant'}">
                                             <core:Item id="I01" key="{mainModel>plant}" text="{mainModel>plant}"/>
                                         </MultiComboBox>
                                     </fb:control>
@@ -41,7 +41,7 @@
                                         <MultiComboBox id="MCB03"
                                             name="MachineIDID"
                                             selectionChange=".onSelectionChange"
-                                            items="{path: 'mainModel>/EquipMaint', length: 23}">
+                                            items="{path: 'mainModel>/UniqueEquipMaintMachineid'}">
                                             <core:Item id="I03" key="{mainModel>machineID}" text="{mainModel>machineID}"/>
                                         </MultiComboBox>
                                     </fb:control>
@@ -65,10 +65,8 @@
                                             <viz:dataset>
                                                 <viz.data:FlattenedDataset id="_IDGenFlattenedDataset1" data="{path: 'mainModel>/AggregatedEquipMaint_C1'}">
                                                     <viz.data:dimensions>
-                                                        <viz.data:DimensionDefinition id="_IDGenDimensionDefinition1" name="Month"
-                                                                                    value="{mainModel>month}" />
-                                                        <viz.data:DimensionDefinition id="_IDGenDimensionDefinition02" name="Year"
-                                                                                    value="{mainModel>year}" />
+                                                        <viz.data:DimensionDefinition id="_IDGenDimensionDefinition1" name="Year_Month"
+                                                                                    value="{path: 'mainModel>serviceMonth'}" />
                                                         <viz.data:DimensionDefinition id="_IDGenDimensionDefinition03" name="Maintenance Type"
                                                                                     value="{mainModel>maintenanceType}" />
                                                     </viz.data:dimensions>
@@ -80,8 +78,7 @@
                                             </viz:dataset>
                                             <viz:feeds>
                                                 <viz.feeds:FeedItem id='valueAxisFeed1' uid="valueAxis" type="Measure" values="Service Count" />
-                                                <viz.feeds:FeedItem id='categoryAxisFeed1' uid="categoryAxis" type="Dimension" values="Month" />
-                                                <viz.feeds:FeedItem id='categoryAxisFeed02' uid="categoryAxis" type="Dimension" values="Year" />
+                                                <viz.feeds:FeedItem id='categoryAxisFeed1' uid="categoryAxis" type="Dimension" values="Year_Month" />
                                                 <viz.feeds:FeedItem id='categoryAxisFeed03' uid="categoryAxis" type="Dimension" values="Maintenance Type" />
                                             </viz:feeds>
                                             <viz:dependents>
