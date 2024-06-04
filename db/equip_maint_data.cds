@@ -35,9 +35,9 @@ entity UniqueEquipMaintMachineid as select machineID from EquipMaint;
 entity AggregatedEquipMaint_C1 as select from EquipMaint {
   key serviceDate : String,
   key maintenanceType : String,
-  (YEAR(serviceDate) || '-' || MONTH(serviceDate)) AS serviceMonth : String,
+  (strftime('%Y', serviceDate) || '-' || strftime('%m', serviceDate)) AS serviceMonth : String,
   COUNT(EquipMaint.maintenanceType) AS totalserviceCount : Integer
-} GROUP BY (YEAR(serviceDate) || '-' || MONTH(serviceDate)), maintenanceType;
+} GROUP BY (strftime('%Y', serviceDate) || '-' || strftime('%m', serviceDate)), maintenanceType;
 
 entity AggregatedEquipMaint_C2 as select from EquipMaint {
   key maintenanceLocation,
