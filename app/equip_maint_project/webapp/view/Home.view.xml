@@ -57,86 +57,84 @@
             <f:content>
                 <VBox id="_IDGenVBox1">   
                     <VBox id="_IDGenHBox2">
-                        <HBox id="_IDGenHBox3">
-                            <VBox id="_IDGenVBox01" width="35%">
-                                <layout:FixFlex id='chartFixFlex' minFlexSize="250">
-                                    <layout:flexContent>
-                                        <viz:VizFrame id="idVizFrame1" uiConfig="{applicationSet:'fiori'}"
-                                                    height="400px" width="100%" vizType="stacked_bar" visible="true"
-                                                    vizProperties="{
-                                                        title: {text : 'Service Count by Maintenance Type and Month/Year', visible : true},
-                                                        plotArea: {
-                                                            dataLabel: {
-                                                                showTotal: true,
-                                                                formatString: '0'
-                                                            }
+                        <VBox id="_IDGenVBox01" width="100%">
+                            <layout:FixFlex id='chartFixFlex' minFlexSize="250">
+                                <layout:flexContent>
+                                    <viz:VizFrame id="idVizFrame1" uiConfig="{applicationSet:'fiori'}"
+                                                height="550px" width="100%" vizType="line" visible="true"
+                                                vizProperties="{
+                                                    title: {text : 'Service Count by Maintenance Type and Month/Year', visible : true},
+                                                    plotArea: {
+                                                        dataLabel: {
+                                                            showTotal: true,
+                                                            formatString: '0'
                                                         }
-                                                    }">
-                                            <viz:dataset>
-                                                <viz.data:FlattenedDataset id="_IDGenFlattenedDataset1" data="{path: 'mainModel>/AggregatedEquipMaint_C1'}">
-                                                    <viz.data:dimensions>
-                                                        <viz.data:DimensionDefinition id="_IDGenDimensionDefinition1" name="Year_Month"
-                                                                                    value="{path: 'mainModel>serviceMonth'}" />
-                                                        <viz.data:DimensionDefinition id="_IDGenDimensionDefinition03" name="Maintenance Type"
-                                                                                    value="{mainModel>maintenanceType}" />
-                                                    </viz.data:dimensions>
-                                                    <viz.data:measures>
-                                                        <viz.data:MeasureDefinition id="_IDGenMeasureDefinition1" name="Service Count"
-                                                                                    value="{mainModel>totalserviceCount}" /> <!-- Each record counts as 1 service event -->
-                                                    </viz.data:measures>
-                                                </viz.data:FlattenedDataset>
-                                            </viz:dataset>
-                                            <viz:feeds>
-                                                <viz.feeds:FeedItem id='valueAxisFeed1' uid="valueAxis" type="Measure" values="Service Count" />
-                                                <viz.feeds:FeedItem id='categoryAxisFeed1' uid="categoryAxis" type="Dimension" values="Year_Month" />
-                                                <viz.feeds:FeedItem id='categoryAxisFeed03' uid="categoryAxis" type="Dimension" values="Maintenance Type" />
-                                            </viz:feeds>
-                                            <viz:dependents>
-                                                <viz:Popover id="idPopOver1"></viz:Popover>
-                                            </viz:dependents>
-                                        </viz:VizFrame>
-                                    </layout:flexContent>
-                                </layout:FixFlex>
-                            </VBox>
-                            <VBox id="_IDGenVBox02" width="65%">
-                                <layout:FixFlex id='chartFixFlex2' minFlexSize="250">
-                                    <layout:flexContent>
-                                        <viz:VizFrame id="idVizFrame2" uiConfig="{applicationSet:'fiori'}"
-                                                    height='400px' width="100%" vizType='stacked_bar' 
-                                                    vizProperties="{
-                                                        title: {text : 'Service Cost by Maintenance Location and Machine', visible : true},
-                                                        plotArea: {
-                                                            dataLabel: {
-                                                                showTotal: true,
-                                                                formatString: '0'
-                                                            }
+                                                    }
+                                                }">
+                                        <viz:dataset>
+                                            <viz.data:FlattenedDataset id="_IDGenFlattenedDataset1" data="{path: 'mainModel>/AggregatedEquipMaint_C1'}">
+                                                <viz.data:dimensions>
+                                                    <viz.data:DimensionDefinition id="_IDGenDimensionDefinition1" name="Year_Month"
+                                                                                value="{path: 'mainModel>serviceMonth'}" />
+                                                    <viz.data:DimensionDefinition id="_IDGenDimensionDefinition03" name="Maintenance Type"
+                                                                                value="{mainModel>maintenanceType}" />
+                                                </viz.data:dimensions>
+                                                <viz.data:measures>
+                                                    <viz.data:MeasureDefinition id="_IDGenMeasureDefinition1" name="Service Count"
+                                                                                value="{mainModel>totalserviceCount}" /> <!-- Each record counts as 1 service event -->
+                                                </viz.data:measures>
+                                            </viz.data:FlattenedDataset>
+                                        </viz:dataset>
+                                        <viz:feeds>
+                                            <viz.feeds:FeedItem id='valueAxisFeed1' uid="valueAxis" type="Measure" values="Service Count" />
+                                            <viz.feeds:FeedItem id='categoryAxisFeed1' uid="categoryAxis" type="Dimension" values="Year_Month" />
+                                            <viz.feeds:FeedItem id='categoryAxisFeed03' uid="categoryAxis" type="Dimension" values="Maintenance Type" />
+                                        </viz:feeds>
+                                        <viz:dependents>
+                                            <viz:Popover id="idPopOver1"></viz:Popover>
+                                        </viz:dependents>
+                                    </viz:VizFrame>
+                                </layout:flexContent>
+                            </layout:FixFlex>
+                        </VBox>
+                        <VBox id="_IDGenVBox02" width="100%">
+                            <layout:FixFlex id='chartFixFlex2' minFlexSize="250">
+                                <layout:flexContent>
+                                    <viz:VizFrame id="idVizFrame2" uiConfig="{applicationSet:'fiori'}"
+                                                height='650px' width="100%" vizType='heatmap' 
+                                                vizProperties="{
+                                                    title: {text : 'Service Cost by Maintenance Location and Machine', visible : true},
+                                                    plotArea: {
+                                                        dataLabel: {
+                                                            visible: true,
+                                                            formatString: '0'
                                                         }
-                                                    }">
-                                            <viz:dataset>
-                                                <viz.data:FlattenedDataset id="_IDGenFlattenedDataset2" data="{mainModel>/AggregatedEquipMaint_C2}">
-                                                    <viz.data:dimensions>
-                                                        <viz.data:DimensionDefinition id="_IDGenDimensionDefinition2" name="Machine" value="{mainModel>machineDescription}" />
-                                                        <viz.data:DimensionDefinition id="_IDGenDimensionDefinition3" name="Maintenance Location" value="{mainModel>maintenanceLocation}" />
-                                                    </viz.data:dimensions>
-                                                    <viz.data:measures>
-                                                        <viz.data:MeasureDefinition id="_IDGenMeasureDefinition3" name="Labor Cost" value="{mainModel>totalLaborCost}" />
-                                                    </viz.data:measures>
-                                                </viz.data:FlattenedDataset>
-                                            </viz:dataset>
-                                            <viz:feeds>
-                                                <viz.feeds:FeedItem id='valueAxisFeed3' uid="valueAxis" type="Measure" values="Labor Cost" />
-                                                <viz.feeds:FeedItem id='categoryAxisFeed2' uid="categoryAxis" type="Dimension" values="Machine" />
-                                                <viz.feeds:FeedItem id='categoryAxisFeed3' uid="categoryAxis" type="Dimension" values="Maintenance Location" />
-                                            </viz:feeds>
-                                            <viz:dependents>
-                                                <viz:Popover id="idPopOver2"></viz:Popover>
-                                            </viz:dependents>
-                                        </viz:VizFrame>
-                                    </layout:flexContent>
-                                </layout:FixFlex>
-                            </VBox>
-                        </HBox>
-                    </VBox>           
+                                                    }
+                                                }">
+                                        <viz:dataset>
+                                            <viz.data:FlattenedDataset id="_IDGenFlattenedDataset2" data="{mainModel>/AggregatedEquipMaint_C2}">
+                                                <viz.data:dimensions>
+                                                    <viz.data:DimensionDefinition id="_IDGenDimensionDefinition2" name="Machine" value="{mainModel>machineDescription}" />
+                                                    <viz.data:DimensionDefinition id="_IDGenDimensionDefinition3" name="Maintenance Location" value="{mainModel>maintenanceLocation}" />
+                                                </viz.data:dimensions>
+                                                <viz.data:measures>
+                                                    <viz.data:MeasureDefinition id="_IDGenMeasureDefinition3" name="Labor Cost" value="{mainModel>totalLaborCost}" />
+                                                </viz.data:measures>
+                                            </viz.data:FlattenedDataset>
+                                        </viz:dataset>
+                                        <viz:feeds>
+                                            <viz.feeds:FeedItem id='valueAxisFeed3' uid="color" type="Measure" values="Labor Cost" /> <!-- Changed uid to "color" for heatmap -->
+                                            <viz.feeds:FeedItem id='categoryAxisFeed2' uid="categoryAxis" type="Dimension" values="Machine" />
+                                            <viz.feeds:FeedItem id='categoryAxisFeed3' uid="categoryAxis" type="Dimension" values="Maintenance Location" />
+                                        </viz:feeds>
+                                        <viz:dependents>
+                                            <viz:Popover id="idPopOver2"></viz:Popover>
+                                        </viz:dependents>
+                                    </viz:VizFrame>
+                                </layout:flexContent>
+                            </layout:FixFlex>
+                        </VBox>
+                    </VBox>
                     <VBox id="_IDGenVBox2">
                         <HBox id="_IDGenHBox4" justifyContent="End">
                             <Button id="onCreate" text="Create" press=".onCreateDialog" />
