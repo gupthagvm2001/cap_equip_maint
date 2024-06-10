@@ -29,9 +29,15 @@ entity EquipMaint {
   currencyType: String; 
 }
 
-entity UniqueEquipMaintplant as select plant from EquipMaint;
-entity UniqueEquipMaintMachineid as select machineID from EquipMaint;
+entity UniqueEquipMaintplant as select from EquipMaint {
+    plant,
+    plantDescription
+} group by plant, plantDescription;
 
+entity UniqueEquipMaintMachineid as select from EquipMaint {
+    machineID,
+    machineDescription
+  } group by machineID, machineDescription;
 entity AggregatedEquipMaint_C1 as select from EquipMaint {
   key serviceDate : String,
   key maintenanceType : String,

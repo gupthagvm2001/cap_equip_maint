@@ -21,10 +21,11 @@
                                 <fb:FilterGroupItem id="FGI01" name="plant" label="Plant" groupName="Group1" visibleInFilterBar="true">
                                     <fb:control>
                                         <MultiComboBox id="MCB01"
+                                                    showSecondaryValues= "true"
                                                     name="plant"
                                                     selectionChange=".onSelectionChange"
                                                     items="{path: 'mainModel>/UniqueEquipMaintplant'}">
-                                            <core:Item id="I01" key="{mainModel>plant}" text="{mainModel>plant}"/>
+                                            <core:ListItem id="I01" key="{mainModel>plant}" text="{mainModel>plant}" additionalText="{mainModel>plantDescription}"/>
                                         </MultiComboBox>
                                     </fb:control>
                                 </fb:FilterGroupItem>
@@ -36,13 +37,14 @@
                                         </VBox>
                                     </fb:control>
                                 </fb:FilterGroupItem>
-                                <fb:FilterGroupItem id="FGI03" name="MachineIDID" label="Machine ID" groupName="Group1" visibleInFilterBar="true">
+                                <fb:FilterGroupItem id="FGI03" name="MachineID" label="Machine ID" groupName="Group1" visibleInFilterBar="true">
                                     <fb:control>
                                         <MultiComboBox id="MCB03"
-                                            name="MachineIDID"
+                                            showSecondaryValues= "true"
+                                            name="MachineID"
                                             selectionChange=".onSelectionChange"
                                             items="{path: 'mainModel>/UniqueEquipMaintMachineid'}">
-                                            <core:Item id="I03" key="{mainModel>machineID}" text="{mainModel>machineID}"/>
+                                            <core:ListItem id="I03" key="{mainModel>machineID}" text="{mainModel>machineID}" additionalText="{mainModel>machineDescription}"/>
                                         </MultiComboBox>
                                     </fb:control>
                                 </fb:FilterGroupItem>
@@ -102,7 +104,7 @@
                                         <viz:VizFrame id="idVizFrame2" uiConfig="{applicationSet:'fiori'}"
                                                     height='400px' width="100%" vizType='stacked_bar' 
                                                     vizProperties="{
-                                                        title: {text : 'Service Cost by Maintenance Location and Machine Description', visible : true},
+                                                        title: {text : 'Service Cost by Maintenance Location and Machine', visible : true},
                                                         plotArea: {
                                                             dataLabel: {
                                                                 showTotal: true,
@@ -113,7 +115,7 @@
                                             <viz:dataset>
                                                 <viz.data:FlattenedDataset id="_IDGenFlattenedDataset2" data="{mainModel>/AggregatedEquipMaint_C2}">
                                                     <viz.data:dimensions>
-                                                        <viz.data:DimensionDefinition id="_IDGenDimensionDefinition2" name="Machine Description" value="{mainModel>machineDescription}" />
+                                                        <viz.data:DimensionDefinition id="_IDGenDimensionDefinition2" name="Machine" value="{mainModel>machineDescription}" />
                                                         <viz.data:DimensionDefinition id="_IDGenDimensionDefinition3" name="Maintenance Location" value="{mainModel>maintenanceLocation}" />
                                                     </viz.data:dimensions>
                                                     <viz.data:measures>
@@ -123,7 +125,7 @@
                                             </viz:dataset>
                                             <viz:feeds>
                                                 <viz.feeds:FeedItem id='valueAxisFeed3' uid="valueAxis" type="Measure" values="Labor Cost" />
-                                                <viz.feeds:FeedItem id='categoryAxisFeed2' uid="categoryAxis" type="Dimension" values="Machine Description" />
+                                                <viz.feeds:FeedItem id='categoryAxisFeed2' uid="categoryAxis" type="Dimension" values="Machine" />
                                                 <viz.feeds:FeedItem id='categoryAxisFeed3' uid="categoryAxis" type="Dimension" values="Maintenance Location" />
                                             </viz:feeds>
                                             <viz:dependents>
@@ -150,7 +152,7 @@
                                     <Text id="_IDGenText2" text="Machine ID" />
                                 </Column>
                                 <Column id="_IDGenColumn3" minScreenWidth="Tablet" demandPopin="true" width="90px">
-                                    <Text id="_IDGenText3" text="Machine Description" />
+                                    <Text id="_IDGenText3" text="Machine" />
                                 </Column>
                                 <Column id="_IDGenColumn4" minScreenWidth="Tablet" demandPopin="true" width="80px">
                                     <Text id="_IDGenText4" text="Maintenance Location" />
@@ -213,7 +215,7 @@
             <VBox id="_IDGenVBox3">
                 <Input id="newMaintID" placeholder="Maintenance ID"/>
                 <Input id="newMachineID" placeholder="Machine ID" />
-                <Input id="newMachineDescription" placeholder="Machine Description"/>
+                <Input id="newMachineDescription" placeholder="Machine"/>
                 <Input id="newMaintenanceLocation" placeholder="Maintenance Location"/>
                 <DatePicker id="newServiceDate" placeholder="Service Date" valueFormat="yyyy-MM-dd" displayFormat="yyyy-MM-dd"/>
                 <Input id="newTechnician" placeholder="Technician"/>
