@@ -11,7 +11,8 @@ sap.ui.define([
             var oView = this.getView();
             var oTable = oView.byId("table0");
             var oMultiComboBox1 = oView.byId("MCB01");
-            
+            var oVizFrame1 = oView.byId("idVizFrame1");
+            var oVizFrame2 = oView.byId("idVizFrame2");
             var oMultiComboBox3 = oView.byId("MCB03");
             var oDatePickerFrom = oView.byId("DP01_From");
             var oDatePickerTo = oView.byId("DP01_To");
@@ -62,6 +63,18 @@ sap.ui.define([
                 // Apply filters to table binding
                 var oBinding = oTable.getBinding("items");
                 oBinding.filter(new Filter({
+                    filters: aFilters,
+                    and: true
+                }));
+
+                var oVizFrame1Binding = oVizFrame1.getDataset().getBinding("data");
+                oVizFrame1Binding.filter(new Filter({
+                    filters: aFilters,
+                    and: true
+                }));
+
+                var oVizFrame2Binding = oVizFrame2.getDataset().getBinding("data");
+                oVizFrame2Binding.filter(new Filter({
                     filters: aFilters,
                     and: true
                 }));

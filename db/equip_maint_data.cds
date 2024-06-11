@@ -42,12 +42,12 @@ entity AggregatedEquipMaint_C1 as select from EquipMaint {
   key serviceDate : String,
   key maintenanceType : String,
   (strftime('%Y', serviceDate) || '-' || strftime('%m', serviceDate)) AS serviceMonth : String,
-  COUNT(EquipMaint.maintenanceType) AS totalserviceCount : Integer
+  COUNT(EquipMaint.maintenanceType) AS totalserviceCount : Integer,
 } GROUP BY (strftime('%Y', serviceDate) || '-' || strftime('%m', serviceDate)), maintenanceType;
 
 entity AggregatedEquipMaint_C2 as select from EquipMaint {
   key maintenanceLocation,
   key machineDescription,
   @Aggregation.default : #SUM
-  sum(laborCost) as totalLaborCost : Decimal
+  sum(laborCost) as totalLaborCost : Decimal,
 } group by maintenanceLocation, machineDescription;

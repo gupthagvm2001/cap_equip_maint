@@ -101,7 +101,7 @@
                             <layout:FixFlex id='chartFixFlex2' minFlexSize="250">
                                 <layout:flexContent>
                                     <viz:VizFrame id="idVizFrame2" uiConfig="{applicationSet:'fiori'}"
-                                                height='650px' width="100%" vizType='heatmap' 
+                                                height='550px' width="100%" vizType='heatmap' 
                                                 vizProperties="{
                                                     title: {text : 'Service Cost by Maintenance Location and Machine', visible : true},
                                                     plotArea: {
